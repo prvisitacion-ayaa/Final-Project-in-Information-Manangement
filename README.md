@@ -47,6 +47,8 @@ python src/app.py
 ### 4. Access the System
 Open your web browser and go to:
 http://127.0.0.1:5000/
+username: admin
+password: admin123
 
 ### Deliverables
 ERD and Relational Model: Located in the /docs/diagrams/ folder.
