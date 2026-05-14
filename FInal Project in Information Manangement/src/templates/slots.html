@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body { background-color: #F8E3D8; font-family: 'Courier New', Courier, monospace; }
+    .card { border: 2px solid #725D52; background-color: #FFFFFF; border-radius: 6px; min-height: 220px; }
+    .card-header { background-color: #F3C4B3; border-bottom: 2px solid #725D52; color: #725D52; font-weight: bold; }
+    .card-body { background-color: #FAF2EE; display: flex; flex-direction: column; justify-content: space-between; }
+    .badge { font-size: 0.8rem; padding: 5px 10px; border-radius: 4px; color: #725D52; border: 1px solid #725D52; margin-bottom: 10px; }
+    .bg-success { background-color: #A3D89D !important; }
+    .bg-danger { background-color: #E68D81 !important; }
+    .occupant-info { font-weight: bold; color: #725D52; margin-bottom: 15px; display: block; }
+</style>
+
+<h2 class="mb-4 text-center" style="color: #725D52;">Manage Parking Slots</h2>
+
+<div class="row">
+    {% for slot in slots %}
+    <div class="col-md-3 mb-4">
+        <div class="card text-center shadow-sm">
+            <div class="card-header">{{ slot.slot_number }}</div>
+            <div class="card-body">
+                <div>
+                    <p class="text-muted small mb-1">{{ slot.zone }}</p>
+                    <span class="badge {% if slot.status == 'Available' %}bg-success{% else %}bg-danger{% endif %}">
+                        {{ slot.status }}
+                    </span>
+                </div>
+
+                {% if slot.status == 'Available' %}
+                <form action="{{ url_for('occupy_slot', slot_id=slot.id) }}" method="POST">
+                    <select name="vehicle_id" class="form-select form-select-sm mb-2" required>
+                        <option value="" disabled selected>Select Vehicle</option>
+                        {% for v in vehicles %}
+                        <option value="{{ v.id }}">{{ v.plate_number }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn btn-sm btn-primary w-100" style="background-color: #725D52; border: none;">
+                        Occupy Slot
+                    </button>
+                </form>
+                {% else %}
+                <div>
+                    <span class="occupant-info">Plate: {{ slot.plate_number }}</span>
+                    <a href="{{ url_for('release_slot', slot_id=slot.id) }}" class="btn btn-sm btn-outline-danger w-100">
+                        Release Slot
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

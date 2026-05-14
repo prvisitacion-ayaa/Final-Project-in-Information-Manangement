@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4 text-center" style="color: #725D52;">Active Reservations</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>Plate Number</th>
+                        <th>Slot</th>
+                        <th>Time In</th>
+                        <th>Time Out</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in reservations %}
+                    <tr>
+                        <td class="fw-bold">{{ r.plate_number }}</td>
+                        <td>{{ r.slot_number }}</td>
+                        <td>{{ r.time_in }}</td>
+                        <td>{{ r.time_out if r.time_out else '--:--' }}</td>
+                        <td class="text-center">
+                            <span class="badge {% if r.status == 'Active' %}bg-warning{% else %}bg-primary{% endif %}">
+                                {{ r.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table th {
+        border-top: none;
+        background-color: #F3C4B3;
+        color: #725D52;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        padding: 15px;
+    }
+    .table td {
+        vertical-align: middle;
+        padding: 15px;
+        border-bottom: 1px solid #725D52;
+        color: #725D52;
+    }
+    tr:last-child td {
+        border-bottom: none;
+    }
+    .badge {
+        font-family: 'Courier New', Courier, monospace;
+        border: 1px solid #725D52;
+        color: #725D52;
+    }
+    .bg-warning { background-color: #F8E29D !important; }
+    .bg-primary { background-color: #BDE4E4 !important; }
+</style>
+{% endblock %}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - CCCS105</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F8E3D8;
+            font-family: 'Courier New', Courier, monospace;
+            color: #725D52;
+            height: 100vh;
+        }
+        .card {
+            border: 2px solid #725D52;
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 6px 6px 0px #725D52;
+        }
+        .card-header {
+            background-color: #F3C4B3;
+            border-bottom: 2px solid #725D52;
+            color: #725D52;
+            font-weight: bold;
+            text-align: center;
+        }
+        .form-control {
+            border: 2px solid #725D52;
+            border-radius: 4px;
+            background-color: #FAF2EE;
+        }
+        .form-control:focus {
+            border-color: #725D52;
+            box-shadow: none;
+            background-color: #FFFFFF;
+        }
+        .btn-primary {
+            background-color: #BDE4E4;
+            color: #725D52;
+            border: 2px solid #725D52;
+            font-weight: bold;
+            box-shadow: 3px 3px 0px #725D52;
+            text-transform: uppercase;
+        }
+        .btn-primary:hover {
+            background-color: #FFFFFF;
+            color: #725D52;
+            border-color: #725D52;
+            transform: translate(1px, 1px);
+            box-shadow: 2px 2px 0px #725D52;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="mb-0 py-2">Admin Login</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <form method="POST">
+                            <div class="mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" name="username" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" name="password" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 mt-2">Sign In</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

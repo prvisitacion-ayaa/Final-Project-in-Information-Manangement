@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 style="color: #725D52;">Manage Vehicles</h2>
+    <a href="/export/vehicles" class="btn btn-primary btn-sm">Export to CSV</a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">Add New Vehicle</div>
+    <div class="card-body">
+        <form action="/vehicles/add" method="POST" class="row g-3">
+            <div class="col-md-3">
+                <input type="text" name="owner_name" class="form-control" placeholder="Owner Name" required>
+            </div>
+            <div class="col-md-2">
+                <input type="text" name="plate_number" class="form-control" placeholder="Plate Number" required>
+            </div>
+            <div class="col-md-2">
+                <select name="vehicle_type" class="form-select">
+                    <option value="Car">Car</option>
+                    <option value="Motorcycle">Motorcycle</option>
+                    <option value="Truck">Truck</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="text" name="contact_number" class="form-control" placeholder="Contact #">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Add Vehicle</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>Owner</th>
+                        <th>Plate</th>
+                        <th>Type</th>
+                        <th>Contact</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in vehicles %}
+                    <tr>
+                        <td class="fw-bold">{{ v.owner_name }}</td>
+                        <td>{{ v.plate_number }}</td>
+                        <td>{{ v.vehicle_type }}</td>
+                        <td>{{ v.contact_number }}</td>
+                        <td class="text-center">
+                            <a href="{{ url_for('delete_vehicle', id=v.id) }}" 
+                               class="btn btn-sm btn-outline-danger" 
+                               onclick="return confirm('Are you sure you want to remove this vehicle?')">
+                               Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table th {
+        background-color: #F3C4B3;
+        color: #725D52;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        padding: 15px;
+        border-top: none;
+    }
+    .table td {
+        vertical-align: middle;
+        padding: 15px;
+        border-bottom: 1px solid #725D52;
+        color: #725D52;
+    }
+    tr:last-child td {
+        border-bottom: none;
+    }
+    .form-control, .form-select {
+        border: 2px solid #725D52;
+        background-color: #FAF2EE;
+    }
+</style>
+{% endblock %}

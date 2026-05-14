@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row text-center mt-4">
+    <div class="col-md-6">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">Total Registered Vehicles</div>
+            <div class="card-body py-4">
+                <h1 class="display-4 fw-bold" style="color: #725D52;">{{ v_count }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header">Total Available Slots</div>
+            <div class="card-body py-4">
+                <h1 class="display-4 fw-bold" style="color: #725D52;">{{ s_count }}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4 shadow-sm">
+    <div class="card-header text-center">Building Occupancy Breakdown</div>
+    <div class="card-body">
+        <div class="row">
+            {% for stat in building_stats %}
+            <div class="col-md-6 mb-3">
+                <div class="d-flex justify-content-between align-items-center p-3 border rounded bg-white">
+                    <div>
+                        <span class="fw-bold d-block">{{ stat.zone }}</span>
+                        <small class="text-muted">{{ stat.total_slots - stat.occupied_count }} slots left</small>
+                    </div>
+                    <div class="text-end">
+                        <span class="badge mb-2 d-block {% if stat.occupied_count == stat.total_slots %}bg-danger{% else %}bg-primary{% endif %}">
+                            {{ stat.occupied_count }} / {{ stat.total_slots }} Full
+                        </span>
+                        {% if stat.occupied_count < stat.total_slots %}
+                        <a href="{{ url_for('slots', zone=stat.zone) }}" class="btn btn-sm btn-success">Occupy Slot</a>
+                        {% else %}
+                        <button class="btn btn-sm btn-secondary" disabled>Full</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .card { border: 2px solid #725D52; }
+    .card-header { background-color: #F3C4B3; color: #725D52; font-weight: bold; border-bottom: 2px solid #725D52; }
+    .badge { font-family: 'Courier New', Courier, monospace; border: 1px solid #725D52; color: #725D52; }
+    .bg-primary { background-color: #BDE4E4 !important; }
+    .bg-danger { background-color: #E68D81 !important; }
+    .btn-success { background-color: #A3D89D; border: 1px solid #725D52; color: #725D52; font-weight: bold; }
+</style>
+{% endblock %}
