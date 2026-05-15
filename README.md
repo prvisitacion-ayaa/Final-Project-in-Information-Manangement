@@ -54,7 +54,7 @@ password: admin123
 ERD and Relational Model: Located in the /docs/diagrams/ folder.
 
 ### Video Presentation: 
-[Insert Link Here]
+https://drive.google.com/drive/folders/1Ij8wmjkUJDWxwLDOLyjvlsjSeGhlstEe?usp=drive_link
 
 
 
